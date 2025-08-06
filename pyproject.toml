@@ -1,0 +1,15 @@
+[project]
+name = "chess-explain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chess>=1.11.2",
+    "httpx>=0.28.1",
+    "jupyterlab>=4.4.5",
+    "pydantic>=2.11.7",
+    "pydantic-ai>=0.6.0",
+    "python-dotenv>=1.1.1",
+    "stockfish>=3.28.0",
+]
