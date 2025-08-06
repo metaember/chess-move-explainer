@@ -70,19 +70,35 @@ The tool analyzes chess positions by comparing what was actually played versus t
 ### Basic syntax
 
 ```bash
-python chess_analysis.py <input> [move_number] [options]
+python chess_analysis.py <input> <move> [options]
 ```
 
 ### Examples
 
-
-** THE METHODS BESIDES FEN + MOVE MIGHT BE BUGGY **
-
-#### 1. Analyze a Lichess game
+#### 1. Analyze a FEN position with a specific move
 
 ```bash
-# Analyze move 15 from a Lichess game
+# Analyze playing e4 in the starting position
+python chess_analysis.py "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" e4
+
+# Analyze a knight sacrifice in a tactical position
+python chess_analysis.py "2rrn1k1/1b1qbppp/p3p3/1p1pP3/1n1P4/1P3NNP/P2BQPP1/RB2R1K1 b - - 2 20" Nc2
+
+# Test a queen sacrifice
+python chess_analysis.py "r1bq1rk1/ppp2ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQ - 0 8" Qh5
+```
+
+#### 2. Analyze a Lichess game
+
+```bash
+# Analyze White's 15th move from a Lichess game
 python chess_analysis.py https://lichess.org/UQuo9KX9 15
+
+# Analyze Black's 15th move from the same game
+python chess_analysis.py https://lichess.org/UQuo9KX9 15b
+
+# Analyze Black's 1st move
+python chess_analysis.py https://lichess.org/UQuo9KX9 1b
 
 # Use a different AI model
 python chess_analysis.py https://lichess.org/UQuo9KX9 15 --model claude-3-opus-20240229
@@ -91,37 +107,12 @@ python chess_analysis.py https://lichess.org/UQuo9KX9 15 --model claude-3-opus-2
 python chess_analysis.py https://lichess.org/UQuo9KX9 15 --stockfish /usr/local/bin/stockfish
 ```
 
-#### 2. Analyze from a PGN file
-
-```bash
-# Analyze move 23 from a PGN file
-python chess_analysis.py game.pgn 23
-
-# With more analysis depth
-python chess_analysis.py game.pgn 23 --depth 25
-```
-
-#### 3. Analyze a FEN position
-
-```bash
-python chess_analysis.py "2rrn1k1/1b1qbppp/p3p3/1p1pP3/1n1P4/1P3NNP/P2BQPP1/RB2R1K1 b - - 2 20" Nc2
-```
-
-#### 4. Analyze with raw PGN string
-
-```bash
-# Pass PGN directly as a string
-python chess_analysis.py "1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6" 4
-```
-
 ## Command-line Options
 
-- `--model MODEL`: AI model to use (default: claude-3-5-sonnet-20241022)
+- `--model MODEL`: AI model to use (default: claude-3-7-sonnet-latest)
   - Claude models: claude-3-5-sonnet-20241022, claude-3-opus-20240229, claude-3-sonnet-20240229
   - OpenAI models: gpt-4o, gpt-4-turbo, gpt-3.5-turbo
 - `--stockfish PATH`: Path to Stockfish executable (default: /opt/homebrew/bin/stockfish)
-- `--depth N`: Stockfish analysis depth (default: 20)
-- `--n-moves N`: Number of moves to analyze in the continuation (default: 10)
 
 ## Output
 
